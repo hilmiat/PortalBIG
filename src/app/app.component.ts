@@ -9,7 +9,11 @@ import { GeocodeService } from './services/geocode.service';
 })
 export class AppComponent implements OnInit{
   title = 'BIG Portal';
-  
+  isRecord = false;
+  dataRecording=[];
+  clearData(){
+    this.dataRecording = [];
+  }
   ngOnInit(){
     //buat obj map pada onInit agar dibuat ketika elemen html selesai dibuat
     const mymap = L.map("mymap", 
@@ -30,18 +34,21 @@ export class AppComponent implements OnInit{
     //handle click pada peta
     mymap.on('click',(e)=>{
       console.log("anda click peta ",e.latlng);
-      this._geocode.reverseGeo(e.latlng).subscribe(
-        (data)=>{
-          console.log("data",data);
-          this._geocode.data = data;
-          const posisi = L.latLng(data.lat,data.lon);
-          this._mapService.goToLocation(posisi);
-          this._mapService.addMarker(posisi,data.display_name);
-        },(err)=>{
-          console.log('Error:',err);
-        }
-      );
-      
+      if(this.isRecord){
+        this.dataRecording.push(e.latlng);
+      }else{
+            this._geocode.reverseGeo(e.latlng).subscribe(
+              (data)=>{
+                console.log("data",data);
+                this._geocode.data = data;
+                const posisi = L.latLng(data.lat,data.lon);
+                this._mapService.goToLocation(posisi);
+                this._mapService.addMarker(posisi,data.display_name);
+              },(err)=>{
+                console.log('Error:',err);
+              }
+            );
+      }
     });
     mymap.on('contextmenu',(e)=>{
       L.popup().setLatLng(e.latlng)

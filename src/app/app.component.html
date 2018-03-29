@@ -5,5 +5,14 @@
   </h1>
 </div>
 <app-search></app-search>
+<button (click)="isRecord=!isRecord">Record</button>
 <div id="mymap"></div> 
-
+<div *ngIf="isRecord">
+  recording...
+  <button (click)="clearData()">Clear</button>
+  <a href="data:application/json;charset=UTF-8,{{dataRecording}}">Save</a>
+    <ul>
+      <li *ngFor="let data of dataRecording">{{data.lat}} - {{data.lng}}</li>
+    </ul>
+  
+</div>
