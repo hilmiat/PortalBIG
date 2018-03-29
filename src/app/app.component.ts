@@ -15,7 +15,8 @@ export class AppComponent implements OnInit{
       {
         center:L.latLng(-6.5588784,106.8536461),
         zoom:7,
-        layers:[this._mapService.baseLayers.OpenStreetMap]
+        layers:[this._mapService.baseLayers.OpenStreetMap,
+          this._mapService.featureLayers['Batas Wilayah']]
       });
     //opsi / tombol untuk pilih base layer
     L.control.layers(this._mapService.baseLayers).addTo(mymap);
