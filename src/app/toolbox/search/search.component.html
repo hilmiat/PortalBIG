@@ -4,7 +4,7 @@
     <button type="submit" (click)="cari()" >Search</button>
   </form>
   <ul>
-    <li *ngFor="let lok of result" (click)="pilih(lok)"> 
+    <li *ngFor="let lok of result" (click)="pilih(lok)" class="data"> 
     {{lok.display_name}}
   </li>
 </ul>

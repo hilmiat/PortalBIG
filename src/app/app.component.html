@@ -10,7 +10,7 @@
 <div *ngIf="isRecord">
   recording...
   <button (click)="clearData()">Clear</button>
-  <a href="data:application/json;charset=UTF-8,{{dataRecording}}">Save</a>
+  <button (click)="save()">Save</button>
     <ul>
       <li *ngFor="let data of dataRecording">{{data.lat}} - {{data.lng}}</li>
     </ul>

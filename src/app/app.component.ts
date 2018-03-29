@@ -14,6 +14,11 @@ export class AppComponent implements OnInit{
   clearData(){
     this.dataRecording = [];
   }
+  save(){
+    const strdata = JSON.stringify(this.dataRecording);
+    const encoded = encodeURIComponent(strdata);
+    window.open("data:application/json;charset=UTF-8,"+encoded);
+  }
   ngOnInit(){
     //buat obj map pada onInit agar dibuat ketika elemen html selesai dibuat
     const mymap = L.map("mymap", 
