@@ -21,7 +21,7 @@ export class MapService {
     //menambahkan feature layer
     this.featureLayers = {
       "Batas Wilayah":esri.featureLayer({url:"http://portal.ina-sdi.or.id/gis/rest/services/RakornasIG2018/BatasAdmProv/MapServer/0"}),
-      
+      "Jaringan Pipa":esri.featureLayer({url:"http://portal.ina-sdi.or.id/gis/rest/services/RakornasIG2018/Capaian_KSP/MapServer/39"})
     }
     
   }

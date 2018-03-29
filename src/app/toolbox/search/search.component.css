@@ -1,5 +1,7 @@
 #searchbox{
     z-index:1000;
     position:absolute;
-    margin:20px 0 0 60px
+    margin:20px 0 0 60px;
+    background:white;
+    width: 250px;
 }

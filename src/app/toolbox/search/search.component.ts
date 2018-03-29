@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import { MapService } from '../../services/map.service';
 import { Observable } from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
+import { GeocodeService } from '../../services/geocode.service';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -10,18 +11,19 @@ import {HttpClient} from '@angular/common/http';
 })
 export class SearchComponent implements OnInit {
   model = {searchText:''}
-
+  result;
   cari(){
     console.log("Anda ingin pergi ke-",this.model.searchText);
     // const latlng = this.model.searchText.split(",");
-    this.geocode(this.model.searchText).subscribe(
+    this._geocode.geocode(this.model.searchText).subscribe(
       (result)=>{
         if(result.length === 0){
           return;
         }
-        const posisi = L.latLng(result[0].lat,result[0].lon);
-        this._mapService.goToLocation(posisi);
-        this._mapService.addMarker(posisi,result[0].display_name);
+        this.result = result;
+        console.log(result);
+        this._geocode.data = result[0];
+        this.pilih(result[0]);
       },
       (error)=>{
 
@@ -29,14 +31,16 @@ export class SearchComponent implements OnInit {
     );
     
   }
-  constructor(private _mapService:MapService,private _http:HttpClient) { }
+  constructor(private _mapService:MapService,
+    private _http:HttpClient,private _geocode:GeocodeService) { }
 
-  geocode(alamat:string):Observable<any>{
-    const encoded = encodeURIComponent(alamat);
-    return this._http
-      .get<any>(`https://nominatim.openstreetmap.org/search.php?q=${encoded}&format=jsonv2`);
-  }
+
   ngOnInit() {
   }
-
+  pilih(lokasi){
+    const posisi = L.latLng(lokasi.lat,lokasi.lon);
+    this._mapService.goToLocation(posisi);
+    this._mapService.addMarker(posisi,lokasi.display_name);
+    this.model.searchText = lokasi.display_name;
+  }
 }

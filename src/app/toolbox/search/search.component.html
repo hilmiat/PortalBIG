@@ -3,4 +3,9 @@
     <input type="text" name="searchText" [(ngModel)]="model.searchText"/>
     <button type="submit" (click)="cari()" >Search</button>
   </form>
+  <ul>
+    <li *ngFor="let lok of result" (click)="pilih(lok)"> 
+    {{lok.display_name}}
+  </li>
+</ul>
 </div>

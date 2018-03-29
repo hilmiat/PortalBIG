@@ -6,6 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SearchComponent } from './toolbox/search/search.component';
 import { MapService } from './services/map.service';
+import { GeocodeService } from './services/geocode.service';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { MapService } from './services/map.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [MapService,HttpClientModule],
+  providers: [MapService,HttpClientModule, GeocodeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
